@@ -15,7 +15,7 @@ namespace FO4RKV_HFT_2022231.Models
         [Required]
         public string Name { get; set; }
         public int StudioID { get; set; }
-        public Publisher Studio { get; set; }
+        public virtual Publisher Studio { get; set; }
         [JsonIgnore]
         public virtual ICollection<Song> Songs { get; set; }
         [Range(16,70)]
