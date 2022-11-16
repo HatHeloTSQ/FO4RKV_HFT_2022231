@@ -11,13 +11,22 @@ namespace FO4RKV_HFT_2022231.Models
 {
     public class Publisher
     {
-        [StringLength(3)]
+        [StringLength(2)]
         public string Country { get; set; }
+        [Required]
         public string StudioName { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudioID { get; set; }
         [JsonIgnore]
         public virtual ICollection<Artist> Artists { get; set; }
+
+        public Publisher(string country, string studioName, int studioID)
+        {
+            Country = country;
+            StudioName = studioName;
+            StudioID = studioID;
+            Artists = new HashSet<Artist>();
+        }
     }
 }
