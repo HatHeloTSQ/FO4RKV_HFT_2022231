@@ -12,26 +12,65 @@ namespace FO4RKV_HFT_2022231.Test
     [TestFixture]
     public class Tests
     {
-        ArtistLogic songlogic;
-        Mock<IRepository<Artist>> _repository;
+        ArtistLogic artistlogic;
+        Mock<IRepository<Artist>> _artistrepository;
+        PublisherLogic publogic;
+        Mock<IRepository<Publisher>> _publisherrepository;
+        SongLogic songlogic;
+        Mock<IRepository<Song>> _songrepository;
 
         [SetUp]
         public void Initialize()
         {
-            _repository = new Mock<IRepository<Artist>>();
-            _repository.Setup(artist => artist.ReadAll()).Returns(new List<Artist>()
+            _artistrepository = new Mock<IRepository<Artist>>();
+            _artistrepository.Setup(artist => artist.ReadAll()).Returns(new List<Artist>()
             {
-                new Artist(20, "REAPER",  4, 28),
-                new Artist(21, "Kario Kay",5, 21 ),
-                new Artist(29, "Teminite", 5, 25),
-                new Artist(30, "Nero", 3, 37)
+                new Artist(20, "REAPER",  6, 28),
+                new Artist(21, "Kario Kay",6, 21 ),
+                new Artist(22, "Teminite", 7, 25),
+                new Artist(23, "Nero", 7, 38),
+                new Artist(24, "Evilwave", 8, 24),
+                new Artist(25, "UPGRADE", 9, 44)
             }.AsQueryable());
-            songlogic = new ArtistLogic(_repository.Object);
+            _publisherrepository = new Mock<IRepository<Publisher>>();
+            _publisherrepository.Setup(artist => artist.ReadAll()).Returns(new List<Publisher>()
+            {
+                new Publisher("UK", "Metalheadz",6),
+                new Publisher("NO", "Beatservice Records",7),
+                new Publisher("UK","Critical Music",8),
+                new Publisher("NZ","Uprising Records",9)
+            }.AsQueryable());
+            _songrepository = new Mock<IRepository<Song>>();
+            _songrepository.Setup(artist => artist.ReadAll()).Returns(new List<Song>()
+            {
+                new Song("MAKE A MOVE","Drum and Bass",226, 1,"REAPER"),
+                new Song("PULSE","Drum and Bass",196, 2,"REAPER"),
+                new Song("Too Toxic to Handle","Drum and Bass",222, 3,"Kario Kay"),
+                new Song("Kreate","Big Room",259,4,"Kario Kay"),
+                new Song("Beastmode","Drumstep",321,5,"Teminite"),
+                new Song("Animal","Dubstep",225, 6,"Teminite"),
+                new Song("Promises","Dubstep",257, 7,"Nero"),
+                new Song("Holdin On","Dubstep",237, 8,"Nero"),
+                new Song("Tinnitus","Deathstep",294, 9,"Evilwave"),
+                new Song("Misery","Deathstep",334, 10,"Evilwave"),
+                new Song("Trigga Finga","Drum and Bass",244,11,"UPGRADE"),
+                new Song("On You","Drum and Bass",220,12,"UPGRADE")
+            }.AsQueryable());
+            artistlogic = new ArtistLogic(_artistrepository.Object);
+            publogic = new PublisherLogic(_publisherrepository.Object);
+            songlogic = new SongLogic(_songrepository.Object);
         }
         [Test]
         public void AverageAgeTest()
-        { 
-            double? avgage = _repository.
+        {
+            double? avgage = artistlogic.AverageAge();
+            Assert.That(30, Is.EqualTo(avgage));
+        }
+
+        [Test]
+        public void LongestSongArtist()
+        {
+            Assert.That(334, Is.EqualTo(songlogic.LongestSongArtist()));
         }
     }
 }
