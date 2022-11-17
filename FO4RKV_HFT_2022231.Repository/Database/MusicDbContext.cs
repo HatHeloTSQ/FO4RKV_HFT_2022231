@@ -52,18 +52,18 @@ namespace FO4RKV_HFT_2022231.Repository.Database
 
             modelBuilder.Entity<Artist>().HasData(new Artist[]
             {
-                new Artist("Sub Focus", 4, 40),
-                new Artist("Andy C", 4, 46),
-                new Artist("Grafix", 1, 31),
-                new Artist("Metrik", 1, 35),
-                new Artist("Camo & Krooked", 3, 36),
-                new Artist("DJ Fresh", 3, 45),
-                new Artist("Maduk", 2, 32),
-                new Artist("Fox Stevenson", 2, 29),
-                new Artist("MUZZ", 2, 28),
-                new Artist("Koven", 5, 32),
-                new Artist("Pegboard Nerds", 5, 45),
-                new Artist("Noisestorm", 5, 27)
+                new Artist(1,"Sub Focus", 4, 40),
+                new Artist(2,"Andy C", 4, 46),
+                new Artist(3,"Grafix", 1, 31),
+                new Artist(4,"Metrik", 1, 35),
+                new Artist(5,"Camo & Krooked", 3, 36),
+                new Artist(6,"DJ Fresh", 3, 45),
+                new Artist(7,"Maduk", 2, 32),
+                new Artist(8,"Fox Stevenson", 2, 29),
+                new Artist(9,"MUZZ", 2, 28),
+                new Artist(10,"Koven", 5, 32),
+                new Artist(11,"Pegboard Nerds", 5, 45),
+                new Artist(12,"Noisestorm", 5, 27)
             });
 
             modelBuilder.Entity<Song>().HasData(new Song[]
