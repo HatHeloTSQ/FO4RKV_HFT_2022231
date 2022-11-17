@@ -24,6 +24,7 @@ namespace FO4RKV_HFT_2022231.Models
 
         public Artist(int id, string name, int studioID, int age)
         {
+            ArtistID = id;
             Name = name;
             StudioID = studioID;
             Songs = new HashSet<Song>();
