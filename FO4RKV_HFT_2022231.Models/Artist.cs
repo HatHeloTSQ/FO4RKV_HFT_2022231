@@ -12,6 +12,7 @@ namespace FO4RKV_HFT_2022231.Models
     public class Artist
     {
         [Key]
+        public int ArtistID { get; set; }
         [Required]
         public string Name { get; set; }
         public int StudioID { get; set; }
@@ -21,7 +22,7 @@ namespace FO4RKV_HFT_2022231.Models
         [Range(16,70)]
         public int Age { get; set; }
 
-        public Artist(string name, int studioID, int age)
+        public Artist(int id, string name, int studioID, int age)
         {
             Name = name;
             StudioID = studioID;
