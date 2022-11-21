@@ -23,11 +23,8 @@ namespace FO4RKV_HFT_2022231.Repository.ModelRepositories
 
         public override void Update(Song item)
         {
-            var old = Read(item.SongID);
-            foreach (var prop in old.GetType().GetProperties())
-            {
-                prop.SetValue(old, prop.GetValue(item));
-            }
+            var entity = Read(item.SongID);
+            mdbctx.Entry(entity).CurrentValues.SetValues(item);
             mdbctx.SaveChanges();
         }
     }
