@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FO4RKV_HFT_2022231.Repository.Database;
+using System;
 
 namespace FO4RKV_HFT_2022231.Client
 {
@@ -6,7 +7,13 @@ namespace FO4RKV_HFT_2022231.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MusicDbContext db = new MusicDbContext();
+
+            var artists = db.Artists;
+            var songs = db.Songs;
+            var publishers = db.Publishers;
+            ;
+
         }
     }
 }

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FO4RKV_HFT_2022231.Models\FO4RKV_HFT_2022231.Models.csproj" />
+    <ProjectReference Include="..\FO4RKV_HFT_2022231.Repository\FO4RKV_HFT_2022231.Repository.csproj" />
   </ItemGroup>
 
 </Project>
