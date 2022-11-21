@@ -32,5 +32,10 @@ namespace FO4RKV_HFT_2022231.Models
             SongID = songID;
             ArtistName = artistName;
         }
+
+        public Song()
+        {
+
+        }
     }
 }
