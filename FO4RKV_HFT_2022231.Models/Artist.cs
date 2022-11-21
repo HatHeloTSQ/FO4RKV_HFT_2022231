@@ -12,6 +12,7 @@ namespace FO4RKV_HFT_2022231.Models
     public class Artist
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArtistID { get; set; }
         [Required]
         public string Name { get; set; }
