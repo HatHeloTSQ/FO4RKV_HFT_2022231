@@ -30,5 +30,10 @@ namespace FO4RKV_HFT_2022231.Models
             Songs = new HashSet<Song>();
             Age = age;
         }
+
+        public Artist()
+        {
+
+        }
     }
 }
