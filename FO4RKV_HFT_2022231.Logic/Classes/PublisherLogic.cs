@@ -1,4 +1,5 @@
-﻿using FO4RKV_HFT_2022231.Models;
+﻿using FO4RKV_HFT_2022231.Logic.Interface;
+using FO4RKV_HFT_2022231.Models;
 using FO4RKV_HFT_2022231.Repository.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FO4RKV_HFT_2022231.Logic.Classes
 {
-    public class PublisherLogic
+    public class PublisherLogic : IPublisherLogic
     {
         IRepository<Publisher> pubrepo;
         public PublisherLogic(IRepository<Publisher> pubrepo)
