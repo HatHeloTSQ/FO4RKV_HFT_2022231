@@ -43,14 +43,6 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         }
 
         //non-crud methods
-        public double? AverageSongLength()
-        {
-            return this.songrepo.ReadAll().Average(len => len.Length);
-        }
-
-        public int LongestSongArtist()
-        {
-            return this.songrepo.ReadAll().Max(len => len.Length);            
-        }
+        
     }
 }
