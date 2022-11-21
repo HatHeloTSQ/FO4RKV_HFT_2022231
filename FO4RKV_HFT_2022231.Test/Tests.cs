@@ -68,9 +68,51 @@ namespace FO4RKV_HFT_2022231.Test
         }
 
         [Test]
-        public void LongestSongArtist()
+        public void CreatePublisher()
         {
-            Assert.That(334, Is.EqualTo(songlogic.LongestSongArtist()));
+            Publisher createdPublisher = new Publisher("HUN","CreateTest",111);
+
+            publogic.Create(createdPublisher);
+            _publisherrepository.Verify(pub => pub.Create(createdPublisher), Times.Once);
+
+        }
+        [Test]
+        public void CreateArtist()
+        {
+            Artist createdArtist = new Artist(222,"CreateTest", 111, 100);
+
+            artistlogic.Create(createdArtist);
+            _artistrepository.Verify(art => art.Create(createdArtist), Times.Once);
+        }
+        [Test]
+        public void CreateSong()
+        {
+            Song createdSong = new Song("CreateTest","Test123",122,100,"CreatedTest");
+
+            songlogic.Create(createdSong);
+            _songrepository.Verify(son => son.Create(createdSong), Times.Once);
+        }
+
+        [Test]
+        public void DeleteSong()
+        {
+            Song createdSong = new Song("CreateTest", "Test123", 122, 100, "CreatedTest");
+            songlogic.Create(createdSong);
+
+            songlogic.Delete(100);
+
+            _songrepository.Verify(son => son.Delete(100), Times.Once);
+        }
+
+        [Test]
+        public void DeleteArtist()
+        { 
+            Artist createdArtist = new Artist(100,"CreateTest", 122, 100);
+            artistlogic.Create(createdArtist);
+
+            artistlogic.Delete(100);
+
+            _artistrepository.Verify(art => art.Delete(100), Times.Once);
         }
     }
 }
