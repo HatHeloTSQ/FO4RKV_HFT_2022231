@@ -48,7 +48,7 @@ namespace FO4RKV_HFT_2022231.Test
                 new Song("Too Toxic to Handle","Drum and Bass",222, 3,"Kario Kay"),
                 new Song("Kreate","Big Room",259,4,"Kario Kay"),
                 new Song("Beastmode","Drumstep",321,5,"Teminite"),
-                new Song("Animal","Dubstep",225, 6,"Teminite"),
+                new Song("Animal","Dubstep",220, 6,"Teminite"),
                 new Song("Promises","Dubstep",257, 7,"Nero"),
                 new Song("Holdin On","Dubstep",237, 8,"Nero"),
                 new Song("Tinnitus","Deathstep",294, 9,"Evilwave"),
@@ -60,13 +60,7 @@ namespace FO4RKV_HFT_2022231.Test
             publogic = new PublisherLogic(_publisherrepository.Object);
             songlogic = new SongLogic(_songrepository.Object);
         }
-        [Test]
-        public void AverageAgeTest()
-        {
-            double? avgage = artistlogic.AverageAge();
-            Assert.That(30, Is.EqualTo(avgage));
-        }
-
+        
         [Test]
         public void CreatePublisher()
         {
@@ -113,6 +107,42 @@ namespace FO4RKV_HFT_2022231.Test
             artistlogic.Delete(100);
 
             _artistrepository.Verify(art => art.Delete(100), Times.Once);
+        }
+
+        [Test]
+        public void OldestArtistTest()
+        {
+            var oldestArtist = artistlogic.YoungestOrOldestArtist('o');
+            Assert.That(oldestArtist.Name.Equals("UPGRADE"));
+
+        }
+
+        [Test]
+        public void AverageAgeTest()
+        {
+            double? avgage = artistlogic.AverageAge();
+            Assert.That(30, Is.EqualTo(avgage));
+        }
+
+        [Test]
+        public void MostPopularCountryTest()
+        {
+            var publisherCountry = publogic.MostPopularCountry();
+            Assert.That(publisherCountry.Equals("UK"));
+        }
+
+        [Test]
+        public void AvgSongLength()
+        {
+            var avg = songlogic.AvgLength();
+            Assert.That(avg.Equals(252.5));
+        }
+
+        [Test]
+        public void MostPopularGenre()
+        {
+            var popularity = songlogic.MostPopularGenre();
+            Assert.That(popularity.Equals("Drum and Bass"));
         }
     }
 }
