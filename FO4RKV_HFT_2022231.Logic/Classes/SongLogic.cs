@@ -17,7 +17,6 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             this.songrepo = songrepo;
         }
 
-        
         #region CRUD methods
         public void Create(Song item)
         {
