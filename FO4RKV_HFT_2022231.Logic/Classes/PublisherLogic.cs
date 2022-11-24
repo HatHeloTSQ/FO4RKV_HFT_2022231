@@ -16,7 +16,7 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         {
             this.pubrepo = pubrepo;
         }
-
+        #region CRUD methods
         public void Create(Publisher item)
         {
             this.pubrepo.Create(item);
@@ -41,5 +41,21 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         {
             this.pubrepo.Update(item);
         }
+        #endregion
+        #region Non-CRUD methods
+        public Publisher MostPopularCountry()
+        {
+            var helper = pubrepo.ReadAll().GroupBy(x => x.Country).Select(m => new {
+                Name = m.Key,
+                Countries = m.Count()
+            }).FirstOrDefault();
+            return (Publisher)pubrepo.ReadAll().Where(m => m.StudioName == helper.Name);
+        }
+
+        public int PublisherArtistCount(int paramStudioID)
+        {
+            return pubrepo.ReadAll().SelectMany(m => m.Artists).Where(m => m.StudioID == paramStudioID).Count();
+        }
+        #endregion
     }
 }

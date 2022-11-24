@@ -16,7 +16,7 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         {
             this.artistrepo = artistrepo;
         }
-
+        #region CRUD methods
         public void Create(Artist item)
         {
             this.artistrepo.Create(item);
@@ -41,11 +41,33 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         {
             this.artistrepo.Update(item);
         }
-
-        //non-crud methods
+        #endregion
+        #region Non-CRUD methods
         public double? AverageAge()
         {
             return this.artistrepo.ReadAll().Average(artist => artist.Age);
         }
+
+        public Artist YoungestOrOldestArtist(char YoungOrOld = 'y')
+        {
+            var minmax = artistrepo.ReadAll().Select(m => m.Age);
+            if (YoungOrOld == 'y')
+            {
+
+                return (Artist)artistrepo.ReadAll().Where(a => a.Age == minmax.Min());
+            }
+            else
+            {
+                return (Artist)artistrepo.ReadAll().Where(a => a.Age == minmax.Max());
+            }
+        }
+
+        public Artist LongestSongArtist()
+        {
+            var maxlen = artistrepo.ReadAll().SelectMany(m => m.Songs).Select(m => m.Length).Max();
+            var helper = (Song)artistrepo.ReadAll().SelectMany(m => m.Songs).Where(m => m.Length.Equals(maxlen));
+            return (Artist)artistrepo.ReadAll().Where(x => x.Songs.Contains(helper));
+        }
+        #endregion
     }
 }
