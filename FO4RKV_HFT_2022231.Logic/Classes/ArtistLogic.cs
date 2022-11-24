@@ -53,20 +53,19 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             var minmax = artistrepo.ReadAll().Select(m => m.Age);
             if (YoungOrOld == 'y')
             {
-
-                return (Artist)artistrepo.ReadAll().Where(a => a.Age == minmax.Min());
+                return artistrepo.ReadAll().Where(a => a.Age == minmax.Min()).FirstOrDefault();
             }
             else
             {
-                return (Artist)artistrepo.ReadAll().Where(a => a.Age == minmax.Max());
+                return artistrepo.ReadAll().Where(a => a.Age == minmax.Max()).FirstOrDefault();
             }
         }
 
         public Artist LongestSongArtist()
         {
             var maxlen = artistrepo.ReadAll().SelectMany(m => m.Songs).Select(m => m.Length).Max();
-            var helper = (Song)artistrepo.ReadAll().SelectMany(m => m.Songs).Where(m => m.Length.Equals(maxlen));
-            return (Artist)artistrepo.ReadAll().Where(x => x.Songs.Contains(helper));
+            var helper = artistrepo.ReadAll().SelectMany(m => m.Songs).Where(m => m.Length.Equals(maxlen)).FirstOrDefault();
+            return artistrepo.ReadAll().Where(x => x.Songs.Contains(helper)).FirstOrDefault();
         }
         #endregion
     }
