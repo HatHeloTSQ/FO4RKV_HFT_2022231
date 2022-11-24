@@ -43,13 +43,13 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         }
         #endregion
         #region Non-CRUD methods
-        public Publisher MostPopularCountry()
+        public string MostPopularCountry()
         {
             var helper = pubrepo.ReadAll().GroupBy(x => x.Country).Select(m => new {
                 Name = m.Key,
                 Countries = m.Count()
-            }).FirstOrDefault();
-            return (Publisher)pubrepo.ReadAll().Where(m => m.StudioName == helper.Name);
+            }).OrderByDescending(x => x.Countries).FirstOrDefault();
+            return helper.Name;
         }
 
         public int PublisherArtistCount(int paramStudioID)
