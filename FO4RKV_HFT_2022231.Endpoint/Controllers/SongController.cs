@@ -17,37 +17,44 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.songlogic = songlogic;
         }
+        
+        [HttpGet("mostpopulargenre")]               
+        public string MostPopularGenre()
+        {
+            return this.songlogic.MostPopularGenre();
+        }
 
-        // GET: api/<SongController>
+        [HttpGet("averagesonglength")]               
+        public double? AverageSongLength()
+        {
+            return this.songlogic.AvgLength();
+        }
+        
         [HttpGet]
         public IEnumerable<Song> ReadAll()
         {
             return this.songlogic.ReadAll();
         }
 
-        // GET api/<SongController>/5
-        [HttpGet("{id}")]
+        [HttpGet("songreadid")]
         public Song Read(int id)
         {
             return this.songlogic.Read(id);
         }
 
-        // POST api/<SongController>
         [HttpPost]
         public void Create([FromBody] Song value)
         {
             this.songlogic.Create(value);
         }
 
-        // PUT api/<SongController>/5
-        [HttpPut("{id}")]
+        [HttpPut("songupdateid")]
         public void Update([FromBody] Song value)
         {
             this.songlogic.Update(value);
         }
 
-        // DELETE api/<SongController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("songdeleteid")]
         public void Delete(int id)
         {
             this.songlogic.Delete(id);

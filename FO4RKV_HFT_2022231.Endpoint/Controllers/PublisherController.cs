@@ -17,37 +17,44 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.publisherlogic = publisherlogic;
         }
+        
+        [HttpGet("mostpopulargenre")]
+        public string MostPopularCountry()
+        {
+            return this.publisherlogic.MostPopularCountry();
+        }
 
-        // GET: api/<PublisherController>
+        /*[HttpGet("studioID")]
+        public int PublisherArtistCount(int studioID)
+        {
+            return this.publisherlogic.PublisherArtistCount(studioID);
+        }*/
+
         [HttpGet]
         public IEnumerable<Publisher> ReadAll()
         {
             return this.publisherlogic.ReadAll();
         }
 
-        // GET api/<PublisherController>/5
-        [HttpGet("{id}")]
+        [HttpGet("pubreadid")]
         public Publisher Read(int id)
         {
             return this.publisherlogic.Read(id);
         }
 
-        // POST api/<PublisherController>
         [HttpPost]
         public void Create([FromBody] Publisher value)
         {
             this.publisherlogic.Create(value);
         }
 
-        // PUT api/<PublisherController>/5
-        [HttpPut("{id}")]
+        [HttpPut("pubupdateid")]
         public void Update([FromBody] Publisher value)
         {
             this.publisherlogic.Update(value);
         }
 
-        // DELETE api/<PublisherController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("pubdeleteid")]
         public void Delete(int id)
         {
             this.publisherlogic.Delete(id);

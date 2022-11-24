@@ -17,38 +17,50 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.artistLogic = artistLogic;
         }
+        
+        [HttpGet("Average age")]
+        public double? AverageAgeOfAllArtists()
+        {
+            return this.artistLogic.AverageAge();
+        }
 
+        [HttpGet("Youngest or Oldest artist")]
+        public Artist YoungestOrOldestArtist(char YorO)
+        { 
+            return artistLogic.YoungestOrOldestArtist(YorO);
+        }
 
-        // GET: api/<ArtistController>
+        [HttpGet("LongestSongArtist")]
+        public Artist LongestSongArtist()
+        {
+            return this.artistLogic.LongestSongArtist();
+        }
+
         [HttpGet]
         public IEnumerable<Artist> ReadAll()
         {
             return this.artistLogic.ReadAll();
         }
 
-        // GET api/<ArtistController>/5
-        [HttpGet("{id}")]
+        [HttpGet("artreadid")]
         public Artist Read(int id)
         {
             return this.artistLogic.Read(id);
         }
 
-        // POST api/<ArtistController>
         [HttpPost]
         public void Create([FromBody] Artist value)
         {
             this.artistLogic.Create(value);
         }
 
-        // PUT api/<ArtistController>/5
-        [HttpPut("{id}")]
+        [HttpPut("artupdateid")]
         public void Update([FromBody] Artist value)
         {
             this.artistLogic.Update(value);
         }
 
-        // DELETE api/<ArtistController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("artdeleteid")]
         public void Delete(int id)
         {
             this.artistLogic.Delete(id);
