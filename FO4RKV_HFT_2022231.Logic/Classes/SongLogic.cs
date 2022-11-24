@@ -44,7 +44,7 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         }
         #endregion
         #region Non-CRUD methods
-        public double AvgLength()
+        public double? AvgLength()
         {
             return songrepo.ReadAll().Average(a => a.Length);
         }
@@ -54,7 +54,7 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             var helper = songrepo.ReadAll().GroupBy(x => x.Genre).Select(m => new {
                 GenreName = m.Key,
                 GenresCount = m.Count()
-            }).OrderBy(x => x.GenresCount).FirstOrDefault();
+            }).OrderByDescending(x => x.GenresCount).FirstOrDefault();
             return helper.GenreName;
         }
         #endregion
