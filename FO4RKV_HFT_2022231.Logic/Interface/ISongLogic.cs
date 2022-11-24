@@ -10,7 +10,7 @@ namespace FO4RKV_HFT_2022231.Logic.Interface
     public interface ISongLogic
     {
         public string MostPopularGenre();
-        public double AvgLength();
+        public double? AvgLength();
         void Create(Song item);
         void Delete(int id);
         Song Read(int id);
