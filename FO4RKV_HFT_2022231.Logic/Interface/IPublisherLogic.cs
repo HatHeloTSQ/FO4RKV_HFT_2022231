@@ -9,6 +9,8 @@ namespace FO4RKV_HFT_2022231.Logic.Interface
 {
     public interface IPublisherLogic
     {
+        public Publisher MostPopularCountry();
+        public int PublisherArtistCount(int paramStudioName);
         void Create(Publisher item);
         void Delete(int id);
         Publisher Read(int id);
