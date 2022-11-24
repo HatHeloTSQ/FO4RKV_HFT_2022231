@@ -151,7 +151,7 @@ namespace FO4RKV_HFT_2022231.Client
 
         static void Main(string[] args)
         {
-            var rest = new RestService("http://localhost:14705/swagger", "artist");
+            var rest = new RestService("http://localhost:14705/", "artist");
             var songSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => Read("Song"))
                 .Add("Create", () => Create("Song"))

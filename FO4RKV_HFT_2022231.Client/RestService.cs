@@ -12,7 +12,7 @@ namespace FO4RKV_HFT_2022231.Client
     {
         HttpClient client;
 
-        public RestService(string baseurl, string pingableEndpoint = "swagger")
+        public RestService(string baseurl, string pingableEndpoint = "/swagger/index.html")
         {
             bool isOk = false;
             do
