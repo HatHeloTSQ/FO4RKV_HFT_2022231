@@ -17,6 +17,8 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             this.songrepo = songrepo;
         }
 
+        
+        #region CRUD methods
         public void Create(Song item)
         {
             this.songrepo.Create(item);
@@ -41,8 +43,21 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         {
             this.songrepo.Update(item);
         }
+        #endregion
+        #region Non-CRUD methods
+        public double AvgLength()
+        {
+            return songrepo.ReadAll().Average(a => a.Length);
+        }
 
-        //non-crud methods
-        
+        public string MostPopularGenre()
+        {
+            var helper = songrepo.ReadAll().GroupBy(x => x.Genre).Select(m => new {
+                GenreName = m.Key,
+                GenresCount = m.Count()
+            }).OrderBy(x => x.GenresCount).FirstOrDefault();
+            return helper.GenreName;
+        }
+        #endregion
     }
 }
