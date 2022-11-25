@@ -35,10 +35,10 @@ namespace FO4RKV_HFT_2022231.Repository.Database
                 .HasForeignKey(x => x.StudioID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Artist>()
-                .HasMany(x => x.Songs)
-                .WithOne(x => x.Artist)
-                .HasForeignKey(x => x.SongID)
+            modelBuilder.Entity<Song>()
+                .HasOne(x => x.Artist)
+                .WithMany(x => x.Songs)
+                .HasForeignKey(x => x.ArtistID)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Publisher>().HasData(new Publisher[]
@@ -68,30 +68,30 @@ namespace FO4RKV_HFT_2022231.Repository.Database
 
             modelBuilder.Entity<Song>().HasData(new Song[]
             {
-                new Song("Off the Ground", "Drum and Bass", 242, 1, "Sub Focus"),
-                new Song("Solar System", "Drum and Bass", 288, 2, "Sub Focus"),
-                new Song("Firestarter (Andy C remix)", "Drum and Bass", 232, 3, "Andy C"),
-                new Song("Ghost", "Drum and Bass", 166, 4, "Andy C"),
-                new Song("Somewhere", "Drum and Bass", 220, 5, "Grafix"),
-                new Song("Overdrive", "Drum and Bass", 281, 6, "Grafix"),
-                new Song("Parallel", "Drum and Bass", 270, 7, "Metrik"),
-                new Song("Ex Machina", "Drum and Bass", 267, 8, "Metrik"),
-                new Song("Sientelo", "Drum and Bass", 290, 9, "Camo & Krooked"),
-                new Song("No Tomorrow", "Drum and Bass", 271, 10, "Camo & Krooked"),
-                new Song("Golddust", "Drum and Bass", 191, 11, "DJ Fresh"),
-                new Song("Talkbox", "Drum and Bass", 282, 12, "DJ Fresh"),
-                new Song("Ghost Assassin", "Drum and Bass", 221,13, "Maduk"),
-                new Song("Colours", "Drum and Bass", 273,14 , "Maduk"),
-                new Song("Throwdown", "Dubstep", 212,15, "Fox Stevenson"),
-                new Song("Sandblast", "Glitch Hop", 327,16, "Fox Stevenson"),
-                new Song("The Warehouse", "Drum and Bass", 282,17, "MUZZ" ),
-                new Song("Children of Hell", "Dubstep", 404,18 , "MUZZ"),
-                new Song("Shut My Mouth", "Dubstep", 222,19 , "Koven"),
-                new Song("Take It All", "Dubstep", 252,20 , "Koven"),
-                new Song("Disconnected", "Electro", 241,21 , "Pegboard Nerds"),
-                new Song("Razor Sharp", "Glitch Hop", 281,22 , "Pegboard Nerds"),
-                new Song("Heist", "Trap", 182,23, "Noisestorm" ),
-                new Song("Breakdown VIP", "Drumstep", 236,24, "Noisestorm" )
+                new Song("Off the Ground", "Drum and Bass", 242, 1, 1),
+                new Song("Solar System", "Drum and Bass", 288, 2, 1),
+                new Song("Firestarter (Andy C remix)", "Drum and Bass", 232, 3, 2),
+                new Song("Ghost", "Drum and Bass", 166, 4, 2),
+                new Song("Somewhere", "Drum and Bass", 220, 5, 3),
+                new Song("Overdrive", "Drum and Bass", 281, 6, 3),
+                new Song("Parallel", "Drum and Bass", 270, 7, 4),
+                new Song("Ex Machina", "Drum and Bass", 267, 8, 4),
+                new Song("Sientelo", "Drum and Bass", 290, 9, 5),
+                new Song("No Tomorrow", "Drum and Bass", 271, 10, 5),
+                new Song("Golddust", "Drum and Bass", 191, 11, 6),
+                new Song("Talkbox", "Drum and Bass", 282, 12, 6),
+                new Song("Ghost Assassin", "Drum and Bass", 221,13, 7),
+                new Song("Colours", "Drum and Bass", 273,14 , 7),
+                new Song("Throwdown", "Dubstep", 212,15, 8),
+                new Song("Sandblast", "Glitch Hop", 327,16, 8),
+                new Song("The Warehouse", "Drum and Bass", 282,17, 9 ),
+                new Song("Children of Hell", "Dubstep", 404,18 , 9),
+                new Song("Shut My Mouth", "Dubstep", 222,19 , 10),
+                new Song("Take It All", "Dubstep", 252,20 , 10),
+                new Song("Disconnected", "Electro", 241,21 , 11),
+                new Song("Razor Sharp", "Glitch Hop", 281,22 , 11),
+                new Song("Heist", "Trap", 182,23, 12 ),
+                new Song("Breakdown VIP", "Drumstep", 236,24, 12 )
             });
         }
 
