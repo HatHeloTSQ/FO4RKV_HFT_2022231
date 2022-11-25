@@ -17,20 +17,20 @@ namespace FO4RKV_HFT_2022231.Models
         [Required]
         public virtual Artist Artist { get; set; }
         [ForeignKey(nameof(Artist))]
-        public string ArtistName { get; set; }
+        public int ArtistID { get; set; }
         [Range(0,1200)]
         public int Length { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SongID { get; set; }
 
-        public Song(string title, string genre, int length, int songID, string artistName)
+        public Song(string title, string genre, int length, int songID, int artistID)
         {
             Title = title;
             Genre = genre;
             Length = length;
             SongID = songID;
-            ArtistName = artistName;
+            ArtistID = artistID;
         }
 
         public Song()
