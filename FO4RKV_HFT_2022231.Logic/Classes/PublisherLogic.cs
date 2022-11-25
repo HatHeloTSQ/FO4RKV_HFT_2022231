@@ -51,11 +51,6 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             }).OrderByDescending(x => x.Countries).FirstOrDefault();
             return helper.Name;
         }
-
-        public int PublisherArtistCount(int paramStudioID)
-        {
-            return pubrepo.ReadAll().SelectMany(m => m.Artists).Where(m => m.StudioID == paramStudioID).Count();
-        }
         #endregion
     }
 }
