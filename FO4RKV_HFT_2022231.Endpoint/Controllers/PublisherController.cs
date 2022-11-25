@@ -24,12 +24,6 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.publisherlogic.MostPopularCountry();
         }
 
-        /*[HttpGet("studioID")]
-        public int PublisherArtistCount(int studioID)
-        {
-            return this.publisherlogic.PublisherArtistCount(studioID);
-        }*/
-
         [HttpGet]
         public IEnumerable<Publisher> ReadAll()
         {

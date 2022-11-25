@@ -30,12 +30,6 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return artistLogic.YoungestOrOldestArtist(YorO);
         }
 
-        [HttpGet("LongestSongArtist")]
-        public Artist LongestSongArtist()
-        {
-            return this.artistLogic.LongestSongArtist();
-        }
-
         [HttpGet]
         public IEnumerable<Artist> ReadAll()
         {
