@@ -43,18 +43,18 @@ namespace FO4RKV_HFT_2022231.Test
             _songrepository = new Mock<IRepository<Song>>();
             _songrepository.Setup(artist => artist.ReadAll()).Returns(new List<Song>()
             {
-                new Song("MAKE A MOVE","Drum and Bass",226, 1,"REAPER"),
-                new Song("PULSE","Drum and Bass",196, 2,"REAPER"),
-                new Song("Too Toxic to Handle","Drum and Bass",222, 3,"Kario Kay"),
-                new Song("Kreate","Big Room",259,4,"Kario Kay"),
-                new Song("Beastmode","Drumstep",321,5,"Teminite"),
-                new Song("Animal","Dubstep",220, 6,"Teminite"),
-                new Song("Promises","Dubstep",257, 7,"Nero"),
-                new Song("Holdin On","Dubstep",237, 8,"Nero"),
-                new Song("Tinnitus","Deathstep",294, 9,"Evilwave"),
-                new Song("Misery","Deathstep",334, 10,"Evilwave"),
-                new Song("Trigga Finga","Drum and Bass",244,11,"UPGRADE"),
-                new Song("On You","Drum and Bass",220,12,"UPGRADE")
+                new Song("MAKE A MOVE","Drum and Bass",226, 1,20),
+                new Song("PULSE","Drum and Bass",196, 2,20),
+                new Song("Too Toxic to Handle","Drum and Bass",222, 3,21),
+                new Song("Kreate","Big Room",259,4,21),
+                new Song("Beastmode","Drumstep",321,5,22),
+                new Song("Animal","Dubstep",220, 6,22),
+                new Song("Promises","Dubstep",257, 7,23),
+                new Song("Holdin On","Dubstep",237, 8,23),
+                new Song("Tinnitus","Deathstep",294, 9,24),
+                new Song("Misery","Deathstep",334, 10,24),
+                new Song("Trigga Finga","Drum and Bass",244,11,25),
+                new Song("On You","Drum and Bass",220,12,25)
             }.AsQueryable());
             artistlogic = new ArtistLogic(_artistrepository.Object);
             publogic = new PublisherLogic(_publisherrepository.Object);
@@ -81,7 +81,7 @@ namespace FO4RKV_HFT_2022231.Test
         [Test]
         public void CreateSong()
         {
-            Song createdSong = new Song("CreateTest","Test123",122,100,"CreatedTest");
+            Song createdSong = new Song("CreateTest","Test123",122,100,12);
 
             songlogic.Create(createdSong);
             _songrepository.Verify(son => son.Create(createdSong), Times.Once);
@@ -90,7 +90,7 @@ namespace FO4RKV_HFT_2022231.Test
         [Test]
         public void DeleteSong()
         {
-            Song createdSong = new Song("CreateTest", "Test123", 122, 100, "CreatedTest");
+            Song createdSong = new Song("CreateTest", "Test123", 122, 100, 10);
             songlogic.Create(createdSong);
 
             songlogic.Delete(100);
