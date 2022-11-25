@@ -39,8 +39,8 @@ namespace FO4RKV_HFT_2022231.Client
                     var songUpdate = rest.Get<Song>(updateid,"song");
                     Console.WriteLine($"Enter new song title (old: {songUpdate.Title}):");
                     string newSongTitle = Console.ReadLine();
-                    Console.WriteLine($"Enter new song artist (old: {songUpdate.ArtistName}):");
-                    string newSongArtist = Console.ReadLine();
+                    Console.WriteLine($"Enter new song artist (old: {songUpdate.ArtistID}):");
+                    int newSongArtist = int.Parse(Console.ReadLine());
                     Console.WriteLine($"Enter new song length (old: {songUpdate.Length}):");
                     int newSongLength = int.Parse(Console.ReadLine());
                     Console.WriteLine($"Enter new song genre (old: {songUpdate.Genre}):");
@@ -48,7 +48,7 @@ namespace FO4RKV_HFT_2022231.Client
                     songUpdate.Length = newSongLength;
                     songUpdate.Genre = newSongGenre;
                     songUpdate.Title = newSongTitle;
-                    songUpdate.ArtistName = newSongArtist;
+                    songUpdate.ArtistID = newSongArtist;
                     rest.Put(songUpdate,"song");
                     break;
                 case "Artist":
@@ -86,13 +86,13 @@ namespace FO4RKV_HFT_2022231.Client
                 case "Song":
                     Console.WriteLine("Enter song title:");
                     string newSongTitle = Console.ReadLine();
-                    Console.WriteLine("Enter song artist:");
-                    string newSongArtist = Console.ReadLine();
+                    Console.WriteLine("Enter song artist id:");
+                    int newSongArtist = int.Parse(Console.ReadLine());
                     Console.WriteLine("Enter song length:");
                     int newSongLength = int.Parse(Console.ReadLine());
                     Console.WriteLine("Enter song genre:");
                     string newSongGenre = Console.ReadLine();
-                    var songCreate = new Song() { ArtistName = newSongArtist, Genre = newSongGenre, Title = newSongTitle, Length = newSongLength };
+                    var songCreate = new Song() { ArtistID = newSongArtist, Genre = newSongGenre, Title = newSongTitle, Length = newSongLength };
                     rest.Post(songCreate, "song");
                     break;
                 case "Artist":
@@ -103,7 +103,7 @@ namespace FO4RKV_HFT_2022231.Client
                     Console.WriteLine("Enter age:");
                     int newArtistAge = int.Parse(Console.ReadLine());
                     var artistCreate = new Artist() { StudioID = newArtistStudio, Name = newArtistName, Age = newArtistAge };
-                    rest.Put(artistCreate, "artist");
+                    rest.Post(artistCreate, "artist");
                     break;
                 case "Publisher":
                     Console.WriteLine("Enter publisher name:");
@@ -111,7 +111,7 @@ namespace FO4RKV_HFT_2022231.Client
                     Console.WriteLine("Enter publisher country:");
                     string newPublisherCountry = Console.ReadLine();
                     var publisherCreate = new Publisher() { StudioName = newPublisherName, Country = newPublisherCountry };
-                    rest.Put(publisherCreate, "publisher");
+                    rest.Post(publisherCreate, "publisher");
                     break;
                 default:
                     Console.WriteLine("Invalid entity");
