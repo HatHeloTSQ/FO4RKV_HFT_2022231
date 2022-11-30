@@ -16,13 +16,13 @@ namespace FO4RKV_HFT_2022231.Client
             switch (entity)
             {
                 case "Song":
-                    rest.Delete(del, "song");
+                    rest.Delete(del, "Song");
                     break;
                 case "Artist":
-                    rest.Delete(del, "artist");
+                    rest.Delete(del, "Artist");
                     break;
                 case "Publisher":
-                    rest.Delete(del, "publisher");
+                    rest.Delete(del, "Publisher");
                     break;
                 default:
                     Console.WriteLine("Invalid entity");
@@ -36,43 +36,64 @@ namespace FO4RKV_HFT_2022231.Client
             switch (entity)
             {
                 case "Song":
-                    var songUpdate = rest.Get<Song>(updateid,"song");
-                    Console.WriteLine($"Enter new song title (old: {songUpdate.Title}):");
-                    string newSongTitle = Console.ReadLine();
-                    Console.WriteLine($"Enter new song artist (old: {songUpdate.ArtistID}):");
-                    int newSongArtist = int.Parse(Console.ReadLine());
-                    Console.WriteLine($"Enter new song length (old: {songUpdate.Length}):");
-                    int newSongLength = int.Parse(Console.ReadLine());
-                    Console.WriteLine($"Enter new song genre (old: {songUpdate.Genre}):");
-                    string newSongGenre = Console.ReadLine();
-                    songUpdate.Length = newSongLength;
-                    songUpdate.Genre = newSongGenre;
-                    songUpdate.Title = newSongTitle;
-                    songUpdate.ArtistID = newSongArtist;
-                    rest.Put(songUpdate,"song");
+                    try
+                    {
+                        Song songUpdate = rest.Get<Song>(updateid, "Song");
+                        Console.WriteLine($"Enter new song title (old: {songUpdate.Title}):");
+                        string newSongTitle = Console.ReadLine();
+                        Console.WriteLine($"Enter new song artist id (old: {songUpdate.ArtistID}):");
+                        int newSongArtist = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Enter new song length (old: {songUpdate.Length}):");
+                        int newSongLength = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Enter new song genre (old: {songUpdate.Genre}):");
+                        string newSongGenre = Console.ReadLine();
+                        songUpdate.Length = newSongLength;
+                        songUpdate.Genre = newSongGenre;
+                        songUpdate.Title = newSongTitle;
+                        songUpdate.ArtistID = newSongArtist;
+                        rest.Put(songUpdate, "Song");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}");
+                    }
                     break;
                 case "Artist":
-                    var artistUpdate = rest.Get<Artist>(updateid, "artist");
-                    Console.WriteLine($"Enter new artist studio ID (old: {artistUpdate.StudioID}):");
-                    int newArtistStudioID = int.Parse(Console.ReadLine());
-                    Console.WriteLine($"Enter new artist name (old: {artistUpdate.Name}):");
-                    string newArtistName = Console.ReadLine();
-                    Console.WriteLine($"Enter new artist age(old: {artistUpdate.Age}):");
-                    int newArtistAge = int.Parse(Console.ReadLine());
-                    artistUpdate.Age = newArtistAge;
-                    artistUpdate.StudioID = newArtistStudioID;
-                    artistUpdate.Name = newArtistName;
-                    rest.Put(artistUpdate, "artist");
+                    try
+                    {
+                        Artist artistUpdate = rest.Get<Artist>(updateid, "Artist");
+                        Console.WriteLine($"Enter new artist studio ID (old: {artistUpdate.StudioID}):");
+                        int newArtistStudioID = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Enter new artist name (old: {artistUpdate.Name}):");
+                        string newArtistName = Console.ReadLine();
+                        Console.WriteLine($"Enter new artist age(old: {artistUpdate.Age}):");
+                        int newArtistAge = int.Parse(Console.ReadLine());
+                        artistUpdate.Age = newArtistAge;
+                        artistUpdate.StudioID = newArtistStudioID;
+                        artistUpdate.Name = newArtistName;
+                        rest.Put(artistUpdate, "Artist");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}");
+                    }
                     break;
                 case "Publisher":
-                    var publisherUpdate = rest.Get<Publisher>(updateid, "publisher");
-                    Console.WriteLine($"Enter new publisher name (old: {publisherUpdate.StudioName}):");
-                    string newPublisherName = Console.ReadLine();
-                    Console.WriteLine($"Enter new publisher country (old: {publisherUpdate.Country}):");
-                    string newPublisherCountry = Console.ReadLine();
-                    publisherUpdate.Country = newPublisherCountry;
-                    publisherUpdate.StudioName = newPublisherName;
-                    rest.Put(publisherUpdate, "publisher");
+                    try
+                    {
+                        Publisher publisherUpdate = rest.Get<Publisher>(updateid, "Publisher");
+                        Console.WriteLine($"Enter new publisher name (old: {publisherUpdate.StudioName}):");
+                        string newPublisherName = Console.ReadLine();
+                        Console.WriteLine($"Enter new publisher country (old: {publisherUpdate.Country}):");
+                        string newPublisherCountry = Console.ReadLine();
+                        publisherUpdate.Country = newPublisherCountry;
+                        publisherUpdate.StudioName = newPublisherName;
+                        rest.Put(publisherUpdate, "Publisher");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}");
+                    }
                     break;
                 default:
                     Console.WriteLine("Invalid entity");
@@ -84,34 +105,50 @@ namespace FO4RKV_HFT_2022231.Client
             switch (entity)
             {
                 case "Song":
-                    Console.WriteLine("Enter song title:");
-                    string newSongTitle = Console.ReadLine();
-                    Console.WriteLine("Enter song artist id:");
-                    int newSongArtist = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Enter song length:");
-                    int newSongLength = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Enter song genre:");
-                    string newSongGenre = Console.ReadLine();
-                    var songCreate = new Song() { ArtistID = newSongArtist, Genre = newSongGenre, Title = newSongTitle, Length = newSongLength };
-                    rest.Post(songCreate, "song");
+                    try
+                    {
+                        Console.WriteLine("Enter song title: ");
+                        string title = Console.ReadLine();
+                        Console.WriteLine("Enter song genre: ");
+                        string genre = Console.ReadLine();
+                        Console.WriteLine("Enter ArtistID: ");
+                        int aid = int.Parse(Console.ReadLine());
+                        rest.Post<Song>(new Song(title,genre,aid), "Song");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}"); 
+                    }
                     break;
                 case "Artist":
-                    Console.WriteLine("Enter artist name:");
-                    string newArtistName = Console.ReadLine();
-                    Console.WriteLine("Enter artist StudioID:");
-                    int newArtistStudio = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Enter age:");
-                    int newArtistAge = int.Parse(Console.ReadLine());
-                    var artistCreate = new Artist() { StudioID = newArtistStudio, Name = newArtistName, Age = newArtistAge };
-                    rest.Post(artistCreate, "artist");
+                    try
+                    {
+                        Console.WriteLine("Enter artist name:");
+                        string newArtistName = Console.ReadLine();
+                        Console.WriteLine("Enter artist StudioID:");
+                        int newArtistStudio = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter age:");
+                        int newArtistAge = int.Parse(Console.ReadLine());
+                        rest.Post(new Artist(newArtistName,newArtistStudio,newArtistAge), "Artist");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}");
+                    }
                     break;
                 case "Publisher":
-                    Console.WriteLine("Enter publisher name:");
-                    string newPublisherName = Console.ReadLine();
-                    Console.WriteLine("Enter publisher country:");
-                    string newPublisherCountry = Console.ReadLine();
-                    var publisherCreate = new Publisher() { StudioName = newPublisherName, Country = newPublisherCountry };
-                    rest.Post(publisherCreate, "publisher");
+                    try
+                    {
+                        Console.WriteLine("Enter publisher name:");
+                        string newPublisherName = Console.ReadLine();
+                        Console.WriteLine("Enter publisher country:");
+                        string newPublisherCountry = Console.ReadLine();
+                        rest.Post(new Publisher(newPublisherCountry,newPublisherName), "Publisher");
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine($"There was an error: {e.Message}");
+                    }
                     break;
                 default:
                     Console.WriteLine("Invalid entity");
@@ -123,24 +160,30 @@ namespace FO4RKV_HFT_2022231.Client
             switch (entity)
             {
                 case "Song":
-                    List<Song> songs = rest.Get<Song>("song");
+                    List<Song> songs = rest.Get<Song>("Song");
                     Console.WriteLine("");
-                    foreach (Song s in songs) Console.WriteLine($"{s.SongID}\t>>{s.Title}\t>>{s.Genre}\t>>{s.Artist.Name}\t>>{s.Length}");
+                    Console.WriteLine("=================================================");
+                    foreach (var s in songs) 
+                    {
+                        Console.WriteLine($"{s.SongID}\t{s.Title}\n\t{s.Genre} | {s.Length} | {s.Artist.Name}\n=================================================");    
+                    }
                     break;
                 case "Artist":
-                    List<Artist> artists = rest.Get<Artist>("artist");
-                    foreach (Artist a in artists)
+                    List<Artist> artists = rest.Get<Artist>("Artist");
+                    Console.WriteLine("");
+                    Console.WriteLine("=================================================");
+                    foreach (var a in artists)
                     {
-                        Console.WriteLine($"{a.ArtistID}\t>>{a.Name}\t>>{a.Studio.StudioID}\t>>{a.Age}");
-                        foreach (Song s in a.Songs) Console.Write($"\t\t\t>>{s.Title}");
+                        Console.WriteLine($"{a.ArtistID}\t{a.Name}\t{a.Age}\t{a.StudioID}-{a.Studio.StudioName}\n=================================================");
                     }
                     break;
                 case "Publisher":
-                    List<Publisher> pubs = rest.Get<Publisher>("publisher");
+                    List<Publisher> pubs = rest.Get<Publisher>("Publisher");
+                    Console.WriteLine("");
+                    Console.WriteLine("=================================================");
                     foreach (Publisher p in pubs)
                     {
-                        Console.WriteLine($"{p.StudioID}\t>>{p.StudioName}\t>>{p.Country}");
-                        foreach (Artist a in p.Artists) Console.Write($"\t\t>>{a.Name}");
+                        Console.WriteLine($"{p.StudioID}\t{p.StudioName}\t{p.Country}\n=================================================");
                     }
                     break;
                 default:
@@ -148,15 +191,61 @@ namespace FO4RKV_HFT_2022231.Client
             }
             Console.ReadLine();
         }
+        static void AverageAge()
+        {
+            var avg = rest.GetSingle<double?>("Artist/avgage");
+            Console.WriteLine($"The average age of artists is {avg}");
+            Console.ReadLine();
+        }
+        static void YorO()
+        {
+            Console.WriteLine("Would you like to see the youngest or the oldest artist?\n(y/o)");
+            char c = char.Parse(Console.ReadLine());
+            Console.WriteLine("");
+            Artist yoro = rest.GetChar<Artist>(c, "Artist/yoro");
+            if (c == 'y') Console.WriteLine($"Youngest artist's name is {yoro.Name} and age is {yoro.Age}");
+            else Console.WriteLine($"Oldest artist's name is {yoro.Name} and age is {yoro.Age}");
+            Console.ReadLine();
+        }
+        static void MostPopularCountry()
+        {
+            var ctr = rest.GetSingle<string>("Publisher/mostpopularcountry");
+            Console.WriteLine($"The most popular country is {ctr}");
+            Console.ReadLine();
+        }
+        static void MostPopularGenre()
+        {
+            var gen = rest.GetSingle<string>("Song/mostpopulargenre");
+            Console.WriteLine($"The most popular genre is {gen}");
+            Console.ReadLine();
+        }
+        static void AverageSongLength()
+        {
+            var avg = rest.GetSingle<double?>("Song/averagesonglength");
+            Console.WriteLine($"The average length of all songs is {(int)avg/60}:{(int)avg%60}");
+            Console.ReadLine();
+        }
 
         static void Main(string[] args)
         {
-            var rest = new RestService("http://localhost:14705/", "artist");
+            rest = new RestService("http://localhost:14705/", "swagger");
+
+            var sonNCSubMenu = new ConsoleMenu(args, level: 2)
+                .Add("Most popular genre", () => MostPopularGenre())
+                .Add("Average song length", () => AverageSongLength())
+                .Add("Exit", ConsoleMenu.Close);
+
             var songSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => Read("Song"))
                 .Add("Create", () => Create("Song"))
                 .Add("Update", () => Update("Song"))
                 .Add("Delete", () => Delete("Song"))
+                .Add("Queries", () => sonNCSubMenu.Show())
+                .Add("Exit", ConsoleMenu.Close);
+
+            var artNCSubMenu = new ConsoleMenu(args, level: 2)
+                .Add("Average artist age", () => AverageAge())
+                .Add("Youngest or oldest artist", () => YorO())
                 .Add("Exit", ConsoleMenu.Close);
 
             var artSubMenu = new ConsoleMenu(args, level: 1)
@@ -164,13 +253,19 @@ namespace FO4RKV_HFT_2022231.Client
                 .Add("Create", () => Create("Artist"))
                 .Add("Update", () => Update("Artist"))
                 .Add("Delete", () => Delete("Artist"))
+                .Add("Queries", () => artNCSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
+
+            var pubNCSubMenu = new ConsoleMenu(args, level: 2)
+               .Add("Most popular country", () => MostPopularCountry())
+               .Add("Exit", ConsoleMenu.Close);
 
             var pubSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => Read("Publisher"))
                 .Add("Create", () => Create("Publisher"))
                 .Add("Update", () => Update("Publisher"))
                 .Add("Delete", () => Delete("Publisher"))
+                .Add("Queries", () => pubNCSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             var mainMenu = new ConsoleMenu(args, level: 0)
