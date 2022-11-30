@@ -202,14 +202,14 @@ namespace FO4RKV_HFT_2022231.Client
             Console.WriteLine("Would you like to see the youngest or the oldest artist?\n(y/o)");
             char c = char.Parse(Console.ReadLine());
             Console.WriteLine("");
-            Artist yoro = rest.GetChar<Artist>(c, "Artist/yoro");
+            Artist yoro = rest.GetChar<Artist>(c, "Artist");
             if (c == 'y') Console.WriteLine($"Youngest artist's name is {yoro.Name} and age is {yoro.Age}");
             else Console.WriteLine($"Oldest artist's name is {yoro.Name} and age is {yoro.Age}");
             Console.ReadLine();
         }
         static void MostPopularCountry()
         {
-            var ctr = rest.GetSingle<string>("Publisher/mostpopularcountry");
+            var ctr = rest.GetSingle<string>("Publisher");
             Console.WriteLine($"The most popular country is {ctr}");
             Console.ReadLine();
         }
