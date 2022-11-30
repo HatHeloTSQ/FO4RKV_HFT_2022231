@@ -165,7 +165,9 @@ namespace FO4RKV_HFT_2022231.Client
                     Console.WriteLine("=================================================");
                     foreach (var s in songs)
                     {
-                        Console.WriteLine($"{s.SongID}\t{s.Title}\n\t{s.Genre} | {s.Length} | {s.Artist.Name}\n=================================================");
+                        Console.Write($"{s.SongID}\t{s.Title}\n\t{s.Genre} | {s.Length} | ");
+                        if (s.Artist == null) Console.Write("Artist has been deleted\n=================================================\n");
+                        else Console.Write($"{s.Artist.Name}\n=================================================\n");
                     }
                     break;
                 case "Artist":
@@ -174,7 +176,7 @@ namespace FO4RKV_HFT_2022231.Client
                     Console.WriteLine("=================================================");
                     foreach (var a in artists)
                     {
-                        Console.WriteLine($"{a.ArtistID}\t{a.Name}\t{a.Age}\t{a.StudioID}-{a.Studio.StudioName}\n=================================================");
+                        Console.WriteLine($"{a.ArtistID}\t{a.Name}\n\t{a.Age}\t{a.StudioID}-{a.Studio.StudioName}\n=================================================");
                     }
                     break;
                 case "Publisher":
