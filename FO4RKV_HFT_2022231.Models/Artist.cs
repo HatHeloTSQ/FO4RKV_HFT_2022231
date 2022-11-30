@@ -36,5 +36,12 @@ namespace FO4RKV_HFT_2022231.Models
         {
 
         }
+
+        public Artist(string name, int studioID, int age)
+        {
+            Age = age;
+            Name = name;
+            StudioID = studioID;
+        }
     }
 }
