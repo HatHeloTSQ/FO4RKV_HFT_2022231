@@ -17,16 +17,16 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.artistLogic = artistLogic;
         }
-        
+
         [HttpGet("avgage")]
         public double? AverageAgeOfAllArtists()
         {
             return this.artistLogic.AverageAge();
         }
 
-        [HttpGet("yoroartist")]
+        [HttpGet("yoro")]
         public Artist YoungestOrOldestArtist(char YorO)
-        { 
+        {
             return artistLogic.YoungestOrOldestArtist(YorO);
         }
 
@@ -49,9 +49,9 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Update([FromBody] Artist value)
+        public void Update([FromBody] Artist id)
         {
-            this.artistLogic.Update(value);
+            this.artistLogic.Update(id);
         }
 
         [HttpDelete("{id}")]

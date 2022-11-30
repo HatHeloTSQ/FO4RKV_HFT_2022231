@@ -17,7 +17,7 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.publisherlogic = publisherlogic;
         }
-        
+
         [HttpGet("mostpopularcountry")]
         public string MostPopularCountry()
         {

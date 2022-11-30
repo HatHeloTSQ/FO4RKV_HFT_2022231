@@ -113,11 +113,11 @@ namespace FO4RKV_HFT_2022231.Client
                         string genre = Console.ReadLine();
                         Console.WriteLine("Enter ArtistID: ");
                         int aid = int.Parse(Console.ReadLine());
-                        rest.Post<Song>(new Song(title,genre,aid), "Song");
+                        rest.Post<Song>(new Song(title, genre, aid), "Song");
                     }
                     catch (ArgumentException e)
                     {
-                        Console.WriteLine($"There was an error: {e.Message}"); 
+                        Console.WriteLine($"There was an error: {e.Message}");
                     }
                     break;
                 case "Artist":
@@ -129,7 +129,7 @@ namespace FO4RKV_HFT_2022231.Client
                         int newArtistStudio = int.Parse(Console.ReadLine());
                         Console.WriteLine("Enter age:");
                         int newArtistAge = int.Parse(Console.ReadLine());
-                        rest.Post(new Artist(newArtistName,newArtistStudio,newArtistAge), "Artist");
+                        rest.Post(new Artist(newArtistName, newArtistStudio, newArtistAge), "Artist");
                     }
                     catch (ArgumentException e)
                     {
@@ -143,7 +143,7 @@ namespace FO4RKV_HFT_2022231.Client
                         string newPublisherName = Console.ReadLine();
                         Console.WriteLine("Enter publisher country:");
                         string newPublisherCountry = Console.ReadLine();
-                        rest.Post(new Publisher(newPublisherCountry,newPublisherName), "Publisher");
+                        rest.Post(new Publisher(newPublisherCountry, newPublisherName), "Publisher");
                     }
                     catch (ArgumentException e)
                     {
@@ -163,9 +163,9 @@ namespace FO4RKV_HFT_2022231.Client
                     List<Song> songs = rest.Get<Song>("Song");
                     Console.WriteLine("");
                     Console.WriteLine("=================================================");
-                    foreach (var s in songs) 
+                    foreach (var s in songs)
                     {
-                        Console.WriteLine($"{s.SongID}\t{s.Title}\n\t{s.Genre} | {s.Length} | {s.Artist.Name}\n=================================================");    
+                        Console.WriteLine($"{s.SongID}\t{s.Title}\n\t{s.Genre} | {s.Length} | {s.Artist.Name}\n=================================================");
                     }
                     break;
                 case "Artist":
@@ -202,14 +202,14 @@ namespace FO4RKV_HFT_2022231.Client
             Console.WriteLine("Would you like to see the youngest or the oldest artist?\n(y/o)");
             char c = char.Parse(Console.ReadLine());
             Console.WriteLine("");
-            Artist yoro = rest.GetChar<Artist>(c, "Artist");
+            Artist yoro = rest.GetChar<Artist>(c, "Artist/yoro");
             if (c == 'y') Console.WriteLine($"Youngest artist's name is {yoro.Name} and age is {yoro.Age}");
             else Console.WriteLine($"Oldest artist's name is {yoro.Name} and age is {yoro.Age}");
             Console.ReadLine();
         }
         static void MostPopularCountry()
         {
-            var ctr = rest.GetSingle<string>("Publisher");
+            var ctr = rest.GetSingle<string>("Publisher/mostpopularcountry");
             Console.WriteLine($"The most popular country is {ctr}");
             Console.ReadLine();
         }
@@ -222,7 +222,7 @@ namespace FO4RKV_HFT_2022231.Client
         static void AverageSongLength()
         {
             var avg = rest.GetSingle<double?>("Song/averagesonglength");
-            Console.WriteLine($"The average length of all songs is {(int)avg/60}:{(int)avg%60}");
+            Console.WriteLine($"The average length of all songs is {(int)avg / 60}:{(int)avg % 60}");
             Console.ReadLine();
         }
 

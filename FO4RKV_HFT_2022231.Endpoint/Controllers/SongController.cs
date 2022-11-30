@@ -17,19 +17,19 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
         {
             this.songlogic = songlogic;
         }
-        
-        [HttpGet("mostpopulargenre")]               
+
+        [HttpGet("mostpopulargenre")]
         public string MostPopularGenre()
         {
             return this.songlogic.MostPopularGenre();
         }
 
-        [HttpGet("averagesonglength")]               
+        [HttpGet("averagesonglength")]
         public double? AverageSongLength()
         {
             return this.songlogic.AvgLength();
         }
-        
+
         [HttpGet]
         public IEnumerable<Song> ReadAll()
         {
