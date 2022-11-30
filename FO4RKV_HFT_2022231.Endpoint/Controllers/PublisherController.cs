@@ -18,7 +18,7 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             this.publisherlogic = publisherlogic;
         }
         
-        [HttpGet("mostpopularcountry")]
+        [HttpGet("mostpopulargenre")]
         public string MostPopularCountry()
         {
             return this.publisherlogic.MostPopularCountry();
@@ -30,7 +30,7 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.publisherlogic.ReadAll();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("pubreadid")]
         public Publisher Read(int id)
         {
             return this.publisherlogic.Read(id);
@@ -42,13 +42,13 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             this.publisherlogic.Create(value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("pubupdateid")]
         public void Update([FromBody] Publisher value)
         {
             this.publisherlogic.Update(value);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("pubdeleteid")]
         public void Delete(int id)
         {
             this.publisherlogic.Delete(id);

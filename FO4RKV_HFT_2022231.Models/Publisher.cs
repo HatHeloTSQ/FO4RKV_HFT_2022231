@@ -33,11 +33,5 @@ namespace FO4RKV_HFT_2022231.Models
         {
 
         }
-
-        public Publisher(string country, string studioName)
-        {
-            Country = country;
-            StudioName = studioName;
-        }
     }
 }
