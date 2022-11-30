@@ -14,7 +14,6 @@ namespace FO4RKV_HFT_2022231.Models
         [Required]
         public string Title { get; set; }
         public string Genre { get; set; }
-        [Required]
         public virtual Artist Artist { get; set; }
         [ForeignKey(nameof(Artist))]
         public int ArtistID { get; set; }
@@ -36,6 +35,13 @@ namespace FO4RKV_HFT_2022231.Models
         public Song()
         {
 
+        }
+
+        public Song(string title, string genre, int artistID)
+        {
+            ArtistID = artistID;
+            Title = title;
+            Genre = genre;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FO4RKV_HFT_2022231.Client
     {
         HttpClient client;
 
-        public RestService(string baseurl, string pingableEndpoint = "/swagger/index.html")
+        public RestService(string baseurl, string pingableEndpoint = "swagger")
         {
             bool isOk = false;
             do
@@ -103,11 +103,27 @@ namespace FO4RKV_HFT_2022231.Client
             return item;
         }
 
+        public T GetChar<T>(char id, string endpoint)
+        {
+            T item = default(T);
+            ;
+            HttpResponseMessage response = client.GetAsync(endpoint + "?YorO=" + id.ToString()).GetAwaiter().GetResult();
+            ;
+            if (response.IsSuccessStatusCode)
+            {
+                item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return item;
+        }
+
         public void Post<T>(T item, string endpoint)
         {
-            HttpResponseMessage response =
-                client.PostAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
-
+            HttpResponseMessage response = client.PostAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
@@ -118,8 +134,7 @@ namespace FO4RKV_HFT_2022231.Client
 
         public void Delete(int id, string endpoint)
         {
-            HttpResponseMessage response =
-                client.DeleteAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
+            HttpResponseMessage response = client.DeleteAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
 
             if (!response.IsSuccessStatusCode)
             {
@@ -132,9 +147,7 @@ namespace FO4RKV_HFT_2022231.Client
 
         public void Put<T>(T item, string endpoint)
         {
-            HttpResponseMessage response =
-                client.PutAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
-
+            HttpResponseMessage response = client.PutAsJsonAsync(endpoint + "/"+ item,item).GetAwaiter().GetResult();
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();

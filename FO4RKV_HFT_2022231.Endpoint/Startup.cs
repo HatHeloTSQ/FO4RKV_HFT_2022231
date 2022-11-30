@@ -27,8 +27,7 @@ namespace FO4RKV_HFT_2022231.Endpoint
         }
 
         public IConfiguration Configuration { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<MusicDbContext>();
@@ -39,17 +38,16 @@ namespace FO4RKV_HFT_2022231.Endpoint
             services.AddTransient<IArtistLogic, ArtistLogic>();
             services.AddTransient<IPublisherLogic, PublisherLogic>();
             services.AddControllers();
-            services.AddSwaggerGen(swagger => swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "FO4RKV_HFT_2022232.Endpoint", Version = "v1" }));
+            services.AddSwaggerGen(swagger => swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "FO4RKV_HFT_2022231.Endpoint", Version = "v1" }));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(ui => ui.SwaggerEndpoint("/swagger/v1/swagger.json", "FO4RKV_HFT_2022232.Endpoint v1"));
+                app.UseSwaggerUI(ui => ui.SwaggerEndpoint("/swagger/v1/swagger.json", "FO4RKV_HFT_2022231.Endpoint v1"));
             }
 
             app.UseExceptionHandler(handler => handler.Run(async context =>

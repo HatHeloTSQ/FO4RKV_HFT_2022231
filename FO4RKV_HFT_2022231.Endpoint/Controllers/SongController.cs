@@ -36,7 +36,7 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.songlogic.ReadAll();
         }
 
-        [HttpGet("songreadid")]
+        [HttpGet("{id}")]
         public Song Read(int id)
         {
             return this.songlogic.Read(id);
@@ -48,13 +48,13 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             this.songlogic.Create(value);
         }
 
-        [HttpPut("songupdateid")]
+        [HttpPut("{id}")]
         public void Update([FromBody] Song value)
         {
             this.songlogic.Update(value);
         }
 
-        [HttpDelete("songdeleteid")]
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
             this.songlogic.Delete(id);

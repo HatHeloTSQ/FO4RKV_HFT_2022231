@@ -18,13 +18,13 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             this.artistLogic = artistLogic;
         }
         
-        [HttpGet("Average age")]
+        [HttpGet("avgage")]
         public double? AverageAgeOfAllArtists()
         {
             return this.artistLogic.AverageAge();
         }
 
-        [HttpGet("Youngest or Oldest artist")]
+        [HttpGet("yoro")]
         public Artist YoungestOrOldestArtist(char YorO)
         { 
             return artistLogic.YoungestOrOldestArtist(YorO);
@@ -36,7 +36,7 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.artistLogic.ReadAll();
         }
 
-        [HttpGet("artreadid")]
+        [HttpGet("{id}")]
         public Artist Read(int id)
         {
             return this.artistLogic.Read(id);
@@ -48,13 +48,13 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             this.artistLogic.Create(value);
         }
 
-        [HttpPut("artupdateid")]
-        public void Update([FromBody] Artist value)
+        [HttpPut("{id}")]
+        public void Update([FromBody] Artist id)
         {
-            this.artistLogic.Update(value);
+            this.artistLogic.Update(id);
         }
 
-        [HttpDelete("artdeleteid")]
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
             this.artistLogic.Delete(id);
