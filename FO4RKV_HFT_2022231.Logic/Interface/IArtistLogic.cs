@@ -11,6 +11,8 @@ namespace FO4RKV_HFT_2022231.Logic.Interface
     {
         public double? AverageAge();    
         public Artist YoungestOrOldestArtist(char YoungOrOld = 'y');
+        public List<Song> LandSArtistSong(string artistName);
+        public string MostSongOfQueriedGenre(string genre);
         void Create(Artist item);
         void Delete(int id);
         Artist Read(int id);
