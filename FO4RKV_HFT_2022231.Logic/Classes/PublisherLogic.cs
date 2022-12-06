@@ -51,6 +51,42 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             }).OrderByDescending(x => x.Countries).FirstOrDefault();
             return helper.Name;
         }
+
+        public string ArtistsOfStudio(string studioName)
+        {
+            string output = "";
+            var selected = pubrepo.ReadAll().Where(c => c.StudioName == studioName).SelectMany(x => x.Artists).Select(x => x.Name);
+            foreach (var item in selected)
+            {
+                output += item + ", ";
+            }
+            return output.Remove(output.Length-2);
+        }
+
+        public int FullSongLengthOfStudio(int studioID)
+        {
+            return pubrepo.ReadAll()
+                .Where(c => c.StudioID == studioID)
+                .SelectMany(x => x.Artists)
+                .SelectMany(x => x.Songs)
+                .Sum(x => x.Length);
+        }
+
+        public string MostGenreByCountry(string countryCode)
+        {
+            var selectAllCountries = pubrepo.ReadAll().Where(c => c.Country == countryCode);
+            var mostGenreOfCountry = selectAllCountries.SelectMany(x => x.Artists)
+                .SelectMany(x => x.Songs)
+                .GroupBy(x => x.Genre)
+                .Select(x => new
+            {
+                name = x.Key,
+                genreNumber = x.Count()
+            })
+                .OrderByDescending(x => x.genreNumber)
+                .FirstOrDefault();
+            return "The most popular genre in " + countryCode + " is " + mostGenreOfCountry.name + " with " + mostGenreOfCountry.genreNumber + " songs.";
+        }
         #endregion
     }
 }
