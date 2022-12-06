@@ -24,7 +24,25 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.publisherlogic.MostPopularCountry();
         }
 
-        [HttpGet]
+        [HttpGet("studioartists")]
+        public string ArtistsOfStudio(string studioName)
+        {
+            return this.publisherlogic.ArtistsOfStudio(studioName);
+        }
+
+        [HttpGet("codeofcountry")]
+        public string MostGenreByCountry(string countryCode)
+        {
+            return this.publisherlogic.MostGenreByCountry(countryCode);
+        }
+
+        [HttpGet("fulllength")]
+        public int FullSongLengthOfStudio(int studioID)
+        {
+            return this.publisherlogic.FullSongLengthOfStudio(studioID);
+        }
+
+            [HttpGet]
         public IEnumerable<Publisher> ReadAll()
         {
             return this.publisherlogic.ReadAll();
