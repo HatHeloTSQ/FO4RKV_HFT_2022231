@@ -61,6 +61,34 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             }
         }
 
+        public List<Song> LandSArtistSong(string artistName)
+        {
+            var songsOfArtist = artistrepo.ReadAll().Where(art => art.Name.Equals(artistName));
+            var shortest = songsOfArtist.SelectMany(s => s.Songs)
+                .Where(s => s.Length == songsOfArtist.SelectMany(x => x.Songs).Min(x => x.Length))
+                .FirstOrDefault();
+            var longest = songsOfArtist.SelectMany(s => s.Songs)
+                .Where(s => s.Length == songsOfArtist.SelectMany(x => x.Songs).Max(x => x.Length))
+                .FirstOrDefault();
+            var output = new List<Song>();
+            output.Add(longest);
+            output.Add(shortest);
+            return output;
+        }
+
+        public string MostSongOfQueriedGenre(string genre)
+        {
+            var listOfArtists = artistrepo.ReadAll()
+                .Select(x => new
+            {
+                ArtistName = x.Name,
+                SumOfSongs = x.Songs.Where(x => x.Genre == genre).Count()
+            })
+                .OrderByDescending(x => x.SumOfSongs)
+                .FirstOrDefault();
+            return listOfArtists.ArtistName +" made "+listOfArtists.SumOfSongs+" songs of the "+genre+" genre.";
+        }
+
         #endregion
     }
 }
