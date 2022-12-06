@@ -73,6 +73,8 @@ namespace FO4RKV_HFT_2022231.Repository.Database
                 new Song("Firestarter (Andy C remix)", "Drum and Bass", 232, 3, 2),
                 new Song("Ghost", "Drum and Bass", 166, 4, 2),
                 new Song("Somewhere", "Drum and Bass", 220, 5, 3),
+                new Song("Endorphins", "Drum and Bass", 275, 25, 3),
+                new Song("Offender", "Drum and Bass", 182, 26, 3),
                 new Song("Overdrive", "Drum and Bass", 281, 6, 3),
                 new Song("Parallel", "Drum and Bass", 270, 7, 4),
                 new Song("Ex Machina", "Drum and Bass", 267, 8, 4),
