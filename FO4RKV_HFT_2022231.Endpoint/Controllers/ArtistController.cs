@@ -30,6 +30,18 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return artistLogic.YoungestOrOldestArtist(YorO);
         }
 
+        [HttpGet("artistsonglength")]
+        public List<Song> LandSArtistSong(string artistName)
+        {
+            return this.artistLogic.LandSArtistSong(artistName);
+        }
+
+        [HttpGet("queriedgenre")]
+        public string MostSongOfQueriedGenre(string genre)
+        {
+            return this.artistLogic.MostSongOfQueriedGenre(genre);
+        }
+
         [HttpGet]
         public IEnumerable<Artist> ReadAll()
         {
