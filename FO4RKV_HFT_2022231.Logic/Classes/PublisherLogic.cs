@@ -60,32 +60,45 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             {
                 output += item + ", ";
             }
-            return output.Remove(output.Length-2);
+            if (output.Length <= 2) return "There was an error: invalid output.";
+            else return output.Remove(output.Length - 2);
         }
 
         public int FullSongLengthOfStudio(int studioID)
         {
-            return pubrepo.ReadAll()
+            if (studioID.ToString() != null)
+            {
+                return pubrepo.ReadAll()
                 .Where(c => c.StudioID == studioID)
                 .SelectMany(x => x.Artists)
                 .SelectMany(x => x.Songs)
                 .Sum(x => x.Length);
+            }
+            else return int.MinValue;
         }
 
         public string MostGenreByCountry(string countryCode)
         {
-            var selectAllCountries = pubrepo.ReadAll().Where(c => c.Country == countryCode);
-            var mostGenreOfCountry = selectAllCountries.SelectMany(x => x.Artists)
-                .SelectMany(x => x.Songs)
-                .GroupBy(x => x.Genre)
-                .Select(x => new
+            if (countryCode != null && countryCode.Length == 2)
             {
-                name = x.Key,
-                genreNumber = x.Count()
-            })
-                .OrderByDescending(x => x.genreNumber)
-                .FirstOrDefault();
-            return "The most popular genre in " + countryCode + " is " + mostGenreOfCountry.name + " with " + mostGenreOfCountry.genreNumber + " songs.";
+                var selectAllCountries = pubrepo.ReadAll().Where(c => c.Country == countryCode);
+                var mostGenreOfCountry = selectAllCountries.SelectMany(x => x.Artists)
+                    .SelectMany(x => x.Songs)
+                    .GroupBy(x => x.Genre)
+                    .Select(x => new
+                    {
+                        name = x.Key,
+                        genreNumber = x.Count()
+                    })
+                    .OrderByDescending(x => x.genreNumber)
+                    .FirstOrDefault();
+                if (mostGenreOfCountry == null || mostGenreOfCountry.genreNumber.ToString() == null || mostGenreOfCountry.name == "" || mostGenreOfCountry.name == null)
+                {
+                    return "Error: output was invalid.";
+                }
+                else return "The most popular genre in the " + countryCode + " is " + mostGenreOfCountry.name + " with " + mostGenreOfCountry.genreNumber + " songs.";
+            }
+            else return "Error: Country code is invalid (requires a 2 letter code)";
         }
         #endregion
     }
