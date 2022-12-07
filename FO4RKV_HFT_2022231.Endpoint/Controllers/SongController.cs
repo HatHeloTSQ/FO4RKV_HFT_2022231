@@ -30,7 +30,19 @@ namespace FO4RKV_HFT_2022231.Endpoint.Controllers
             return this.songlogic.AvgLength();
         }
 
-        [HttpGet]
+        [HttpGet("pubandasong")]
+        public string PubAndAOfSong(int songID)
+        {
+            return this.songlogic.PubAndAOfSong(songID);
+        }
+
+        [HttpGet("longerthanvalue")]
+        public string ListOfSongs(int value)
+        {
+            return this.songlogic.ListOfSongs(value);
+        }
+
+            [HttpGet]
         public IEnumerable<Song> ReadAll()
         {
             return this.songlogic.ReadAll();
