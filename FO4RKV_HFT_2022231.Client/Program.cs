@@ -38,7 +38,7 @@ namespace FO4RKV_HFT_2022231.Client
                 case "Song":
                     try
                     {
-                        Song songUpdate = rest.Get<Song>(updateid, "Song");
+                        Song songUpdate = rest.Get<Song>(updateid, "Song/");
                         Console.WriteLine($"Enter new song title (old: {songUpdate.Title}):");
                         string newSongTitle = Console.ReadLine();
                         Console.WriteLine($"Enter new song artist id (old: {songUpdate.ArtistID}):");
@@ -61,7 +61,7 @@ namespace FO4RKV_HFT_2022231.Client
                 case "Artist":
                     try
                     {
-                        Artist artistUpdate = rest.Get<Artist>(updateid, "Artist");
+                        Artist artistUpdate = rest.Get<Artist>(updateid, "Artist/");
                         Console.WriteLine($"Enter new artist studio ID (old: {artistUpdate.StudioID}):");
                         int newArtistStudioID = int.Parse(Console.ReadLine());
                         Console.WriteLine($"Enter new artist name (old: {artistUpdate.Name}):");
@@ -81,7 +81,7 @@ namespace FO4RKV_HFT_2022231.Client
                 case "Publisher":
                     try
                     {
-                        Publisher publisherUpdate = rest.Get<Publisher>(updateid, "Publisher");
+                        Publisher publisherUpdate = rest.Get<Publisher>(updateid, "Publisher/");
                         Console.WriteLine($"Enter new publisher name (old: {publisherUpdate.StudioName}):");
                         string newPublisherName = Console.ReadLine();
                         Console.WriteLine($"Enter new publisher country (old: {publisherUpdate.Country}):");
@@ -227,6 +227,126 @@ namespace FO4RKV_HFT_2022231.Client
             Console.WriteLine($"The average length of all songs is {(int)avg / 60}:{(int)avg % 60}");
             Console.ReadLine();
         }
+        static void PublisherAndArtist() //song 
+        {
+            Console.WriteLine("Please enter the ID of the song you're looking for");
+            int input = 0;
+            try
+            {
+                input = int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error.");
+            }
+            string panda = rest.Get<string>(input, "Song/pubandasong?songID=");
+            Console.WriteLine(panda);
+            Console.ReadLine();
+        }
+        static void ListOfSongs() //song
+        {
+            Console.WriteLine("Please enter a value (in seconds):");
+            int input = 0;
+            try
+            {
+                input = int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error.");
+            }
+            string los = rest.Get<string>(input, "Song/longerthanvalue?value=");
+            Console.WriteLine(los);
+            Console.ReadLine();
+        }
+        static void LongestAndShortest() //art
+        {
+            Console.WriteLine("Please enter that artist's name you're looking for:");
+            string input = Console.ReadLine();
+            if (input == null || input == "")
+            {
+                Console.WriteLine("Error: invalid input.");
+            }
+            else
+            {
+                List<Song> las = rest.GetString<List<Song>>(input, "Artist/artistsonglength?artistName=");
+                Console.WriteLine($"\nThe longest and shortest songs of {input} are:");
+                foreach (var item in las)
+                {
+                    try
+                    {
+                        Console.WriteLine($"\t{item.Title} ({item.Genre}) - {item.Length / 60}:{item.Length % 60}");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Error.");
+                    }
+                }
+            }
+            Console.ReadLine();
+        }
+        static void QueriedGenre() //art
+        {
+            Console.WriteLine("Please specify a genre: ");
+            string input = Console.ReadLine();
+            if (input == null ||input == "")
+            {
+                Console.WriteLine("Error: invalid input.");
+            }
+            else
+            {
+                string query = rest.GetString<string>(input, "Artist/queriedgenre?genre=");
+                Console.WriteLine("\n" + query);
+            }
+            Console.ReadLine();
+        }
+        static void StudioArtists() //pub
+        {
+            Console.WriteLine("Enter a the name of which studio's roster would you like to see:");
+            string input = Console.ReadLine();
+            if (input == null || input == "")
+            {
+                Console.WriteLine("Error: invalid input.");
+            }
+            else
+            {
+                string studart = rest.GetString<string>(input, "Publisher/studioartists?studioName=");
+                Console.WriteLine(studart);
+            }
+            Console.ReadLine();
+        }
+        static void FullLengthStudio() //pub
+        {
+            Console.WriteLine("Enter the studio's ID you're looking for:");
+            int input = 0;
+            try
+            {
+                input = int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error: invalid input.");
+            }
+            if (input == int.MinValue)
+            {
+                Console.WriteLine("Error: invalid output.");
+            }
+            else
+            {
+                int studart = rest.Get<int>(input, "Publisher/fulllength?studioID=");
+                Console.WriteLine($"The time it'd take to listen to all songs of the studio ({input}) is {studart / 60} minutes {studart % 60} seconds");
+            }
+            Console.ReadLine();
+        }
+        static void PopularGenreOfCountry() //pub 
+        {
+            Console.WriteLine("Enter the country's id you're looking for:");
+            string input = Console.ReadLine();
+            string genre = rest.GetString<string>(input, "Publisher/codeofcountry?countryCode=");
+            Console.WriteLine(genre);
+            Console.ReadLine();
+        } 
+
 
         static void Main(string[] args)
         {
@@ -235,6 +355,8 @@ namespace FO4RKV_HFT_2022231.Client
             var sonNCSubMenu = new ConsoleMenu(args, level: 2)
                 .Add("Most popular genre", () => MostPopularGenre())
                 .Add("Average song length", () => AverageSongLength())
+                .Add("Publishers and artists of queried song", () => PublisherAndArtist())
+                .Add("List of songs that are longer than the specified value", () => ListOfSongs())
                 .Add("Exit", ConsoleMenu.Close);
 
             var songSubMenu = new ConsoleMenu(args, level: 1)
@@ -248,6 +370,8 @@ namespace FO4RKV_HFT_2022231.Client
             var artNCSubMenu = new ConsoleMenu(args, level: 2)
                 .Add("Average artist age", () => AverageAge())
                 .Add("Youngest or oldest artist", () => YorO())
+                .Add("Longest and shortest song of queried artist", () => LongestAndShortest())
+                .Add("Which artist made the most songs of the specified genre", () => QueriedGenre())
                 .Add("Exit", ConsoleMenu.Close);
 
             var artSubMenu = new ConsoleMenu(args, level: 1)
@@ -260,6 +384,9 @@ namespace FO4RKV_HFT_2022231.Client
 
             var pubNCSubMenu = new ConsoleMenu(args, level: 2)
                .Add("Most popular country", () => MostPopularCountry())
+               .Add("Lists all artists associated with studio", () => StudioArtists())
+               .Add("The total length of songs of specified studio", () => FullLengthStudio())
+               .Add("What is the most popular genre in queried country", () => PopularGenreOfCountry())
                .Add("Exit", ConsoleMenu.Close);
 
             var pubSubMenu = new ConsoleMenu(args, level: 1)
