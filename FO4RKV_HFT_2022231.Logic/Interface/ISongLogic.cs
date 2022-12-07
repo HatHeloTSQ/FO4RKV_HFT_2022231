@@ -11,6 +11,8 @@ namespace FO4RKV_HFT_2022231.Logic.Interface
     {
         public string MostPopularGenre();
         public double? AvgLength();
+        public string PubAndAOfSong(int songID);
+        public string ListOfSongs(int value);
         void Create(Song item);
         void Delete(int id);
         Song Read(int id);
