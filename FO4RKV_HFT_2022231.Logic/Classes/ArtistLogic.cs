@@ -51,14 +51,8 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
         public Artist YoungestOrOldestArtist(char YoungOrOld = 'y')
         {
             var minmax = artistrepo.ReadAll().Select(m => m.Age);
-            if (YoungOrOld == 'y')
-            {
-                return artistrepo.ReadAll().Where(a => a.Age == minmax.Min()).FirstOrDefault();
-            }
-            else
-            {
-                return artistrepo.ReadAll().Where(a => a.Age == minmax.Max()).FirstOrDefault();
-            }
+            if (YoungOrOld == 'y') return artistrepo.ReadAll().Where(a => a.Age == minmax.Min()).FirstOrDefault();
+            else return artistrepo.ReadAll().Where(a => a.Age == minmax.Max()).FirstOrDefault();
         }
 
         public List<Song> LandSArtistSong(string artistName)
@@ -86,7 +80,8 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             })
                 .OrderByDescending(x => x.SumOfSongs)
                 .FirstOrDefault();
-            return listOfArtists.ArtistName +" made "+listOfArtists.SumOfSongs+" songs of the "+genre+" genre.";
+            if (listOfArtists.SumOfSongs == 0) return "This genre is either mistyped or not added yet.";
+            else return listOfArtists.ArtistName +" made "+listOfArtists.SumOfSongs+" songs of the "+genre+" genre.";
         }
 
         #endregion
