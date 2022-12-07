@@ -57,6 +57,49 @@ namespace FO4RKV_HFT_2022231.Logic.Classes
             }).OrderByDescending(x => x.GenresCount).FirstOrDefault();
             return helper.GenreName;
         }
+
+        public string PubAndAOfSong(int songID)
+        {
+            if (songID.ToString() != null)
+            {
+                var songList = songrepo.ReadAll().Where(x => x.SongID == songID).Select(x => new
+                {
+                    Song = x.Title,
+                    Artist = x.Artist.Name,
+                    Studio = x.Artist.Studio.StudioName
+                }).FirstOrDefault();
+                if (songList == null || songList.Song == null || songList.Artist == null || songList.Studio == null)
+                {
+                    return "Error: something went wrong...";
+                }
+                else return "The artist and publisher of " + songList.Song + " is " + songList.Artist + " (" + songList.Studio + ")";
+            }
+            return "Error: invalid input";
+        }
+
+        public string ListOfSongs(int value)
+        {
+            
+            if (value > 0)
+            {
+                var songList = songrepo.ReadAll().Where(x => x.Length >= value).Select(x => new {
+                    Title = x.Title,
+                    Artist = x.Artist.Name,
+                    Len = x.Length
+                }).ToList().OrderBy(x => x.Len);
+                string concat = "The titles of songs that are longer than the queried length (" + value / 60 + ":" + value % 60 + ") is/are:\n";
+                foreach (var item in songList)
+                {
+                    if (item.Artist == null || item.Title == null || item.Len.ToString() == null)
+                    {
+                        concat += "Error during process; data was null";
+                    }
+                    else concat += "\t" + item.Artist + " - " + item.Title + "(" + item.Len / 60 + ":" + item.Len % 60 + ")\n";
+                }
+                return concat;
+            }
+            return "Error: invalid input";
+        }
         #endregion
     }
 }
